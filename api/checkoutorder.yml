@@ -1,0 +1,14 @@
+- api:
+    name: "结账"
+    def: api_CheckoutOrder($sellerid,$orderid,$paymentid)
+    request:
+      url: ?service=App.Orders.CheckoutOrder
+      method: POST
+      data:
+        sellerid: $sellerid
+        orderid: $orderid
+        price: ${getPrice($orderid)}
+        paymentid: $paymentid
+    validate:
+      - eq: ["content.ret",200]
+      - eq: ["ok",True]

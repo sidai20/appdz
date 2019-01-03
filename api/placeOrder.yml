@@ -1,0 +1,16 @@
+- api:
+    name: "下单"
+    def: api_PlaceOrder($sellerid,$openid,$orderid,$cookbookid,$type,$identity)
+    request:
+      url: ?service=App.Orders.AddCart
+      method: POST
+      data:
+        sellerid: $sellerid
+        openid: $openid
+        orderid: $orderid
+        cookbookid: $cookbookid
+        type: $type
+        identity: $identity
+    validate:
+      - eq: ["content.ret",200]
+      - eq: ["ok",True]

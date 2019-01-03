@@ -1,0 +1,40 @@
+- config:
+      name: "顾客扫码点餐下单"
+      request:
+        base_url: http://xt05.colorcun.com:10006
+      variables:
+        - sellerid: "154"
+        - openid: o9pcQ0RkIbmcC-K9Xx5UGGPEsjK8
+        - pnum: 8
+        - tableid: ${getTableid()}
+        - remark: "自动化测试"
+        - remarkid: ${getremark()}
+        - cookbookid: ${getcookbookid()}
+        - price: ${getcookPrice()}
+        - type: 1
+        - paymentid: ${getPayment()}
+        - num: 1
+- test:
+    name: "是否新用户"
+    api: api_GetIsNewUserByOpenid($openid)
+- test:
+    name: "获取用户身份"
+    api: api_GetOpenid($sellerid,$openid)
+- test:
+    name: "顾客扫码"
+    api: api_CreateOrder($sellerid,$openid,$pnum,$tableid,$remark,$remarkid)
+- test:
+    name: "点餐添加购物车"
+    api: api_AddCart($orderid,$openid,$cookbookid,$price,$identity)
+- test:
+    name: "获取餐位费"
+    api: api_GetOrderMealFee($sellerid,$orderid)
+- test:
+    name: "下单"
+    api: api_PlaceOrder($sellerid,$openid,$orderid,$cookbookid,$type,$identity)
+- test:
+    name: "更换桌位"
+    api: api_ChangeeTable($orderid)
+- test:
+    name: "结账"
+    api: api_CheckoutOrder($sellerid,$orderid,$paymentid)

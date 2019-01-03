@@ -1,0 +1,15 @@
+- api:
+    name: "点餐添加购物车"
+    def: api_AddCart($orderid,$openid,$cookbookid,$price,$identity)
+    request:
+      url: ?service=App.Orders.AddCart
+      method: POST
+      data:
+        orderid: $orderid
+        openid: $openid
+        cookbookid: $cookbookid
+        price: $price
+        identity: $identity
+    validate:
+      - eq: ["content.ret",200]
+      - eq: ["ok",True]

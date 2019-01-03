@@ -1,0 +1,24 @@
+- api:
+    name: "扫码点餐"
+    def: api_CreateOrder($sellerid,$openid,$pnum,$tableid,$remark,$remarkid)
+    request:
+      url: ?service=App.Orders.CreateOrder
+      method: POST
+      data:
+        sellerid: $sellerid
+        openid: $openid
+        pnum: $pnum
+        tableid: $tableid
+        remark: $remark
+        remarkid: $remarkid
+    extract:
+      - orderid: content.data.0
+    validate:
+      - eq: ["content.ret",200]
+      - eq: ["ok",True]
+      - eq: ["$orderid", "${getCreatID()}"]
+
+
+
+
+

@@ -1,0 +1,15 @@
+- api:
+    name: "获取用户身份"
+    def: api_GetOpenid($sellerid,$openid)
+    request:
+      url: ?service=App.Orders.GetOpenid
+      method: POST
+      data:
+        sellerid: $sellerid
+        openid: $openid
+    extract:
+      - identity: content.data.0.identity
+    validate:
+      - eq: ["content.ret",200]
+      - eq: ["ok",True]
+      - eq: ["$identity", 1]

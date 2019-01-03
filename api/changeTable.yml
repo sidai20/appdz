@@ -1,0 +1,13 @@
+- api:
+    name: "更换桌位"
+    def: api_ChangeeTable($orderid)
+    request:
+      url: ?service=App.Orders.ChangeeTable
+      method: POST
+      data:
+        orderid: $orderid
+        tableid: ${getorderTableid($orderid)}
+        changeetableid: ${getTableid()}
+    validate:
+      - eq: ["content.ret",200]
+      - eq: ["ok",True]

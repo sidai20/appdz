@@ -1,0 +1,16 @@
+- api:
+    name: "获取订单餐位费"
+    def: api_GetOrderMealFee($sellerid,$orderid)
+    request:
+      url: ?service=App.Orders.GetOrderMealFee
+      method: POST
+      data:
+        sellerid: $sellerid
+        orderid: $orderid
+    extract:
+      - total: content.data.0.total
+      - meal_fee: content.data.0.meal_fee
+    validate:
+      - eq: ["content.ret",200]
+      - eq: ["ok",True]
+      - eq: ["$total","${getmeal_fee($orderid,$meal_fee)}"]

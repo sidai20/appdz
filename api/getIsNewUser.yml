@@ -1,0 +1,15 @@
+- api:
+    name: "是否新用户"                #1老用户0新用户
+    def: api_GetIsNewUserByOpenid($openid)
+    request:
+      url: ?service=App.User.GetIsNewUserByOpenid
+      method: POST
+      data:
+        openid: $openid
+    extract:
+      - data: content.data.0
+    validate:
+      - eq: ["content.ret",200]
+      - eq: ["ok",True]
+      - eq: ["$data", 1]
+

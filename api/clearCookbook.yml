@@ -1,0 +1,14 @@
+- api:
+    name: "清除购物车数量不足或卖光的菜"
+    def: api_ClearCookbook($type,$orderid,$num,$cookbookid)
+    request:
+      url: ?service=App.Orders.ClearCookbook
+      method: POST
+      data:
+        type: $type
+        orderid: $orderid
+        num: $num
+        cookbookid: $cookbookid
+    validate:
+      - eq: ["content.ret",200]
+      - eq: ["ok",True]
