@@ -1,7 +1,6 @@
 import pymysql
 def connectMysql(sql,fetch="one"):
-    conn = pymysql.connect(host="101.201.37.61", user="readuser", password="Naji2018", database="xt-member-two-LINE",
-                           charset="utf8")
+    conn = pymysql.connect()
     cursor = conn.cursor()
     try:
         cursor.execute(sql)
