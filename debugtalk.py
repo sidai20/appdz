@@ -9,6 +9,8 @@ def connectMysql(sql,fetch="one"):
             result = cursor.fetchone()
         else:
             result = cursor.fetchall()
+        cursor.close()
+        conn.close()
         return result
     except Exception as e:
         raise e
@@ -58,7 +60,7 @@ def getPrice(orderid):
     sql = "SELECT price FROM xt_dc_order WHERE id = {}".format(orderid)
     result = connectMysql(sql)
     return result[0]
-# 获取支付方式
+#获取支付方式
 def getPayment():
     sql = "SELECT id FROM xt_dc_seller_payment WHERE sellerid = 154"
     result = connectMysql(sql)
